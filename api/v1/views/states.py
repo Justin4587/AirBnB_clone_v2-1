@@ -39,12 +39,11 @@ def delete_state(state_id=None):
 def create_a_state(state_id=None):
     """create a state"""
     the_state = request.get_json()
-    print(the_state)
     if not the_state:
         abort(400, {'Not a JSON'})
     elif 'name' not in the_state:
         abort(400, {'Missing name'})
-    my_state = State(the_state)
+    my_state = State(**the_state)
     storage.new(my_state)
     storage.save()
     return my_state.to_dict(), 201
