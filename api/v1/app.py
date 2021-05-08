@@ -20,7 +20,6 @@ def teardown_api(exception):
 def err_handle(error):
     """ stuff about errors is here"""
     return jsonify({"error": "Not found"}), 404
-    
 
 
 if __name__ == '__main__':
