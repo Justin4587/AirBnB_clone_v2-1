@@ -47,3 +47,20 @@ def create_a_state(state_id=None):
     storage.new(my_state)
     storage.save()
     return my_state.to_dict(), 201
+
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+def update_a_state(state_id=None):
+    """replace existing data at the specified resource"""
+    the_states = storage.all('State').values()
+    for the_one in the_states:
+        if the_one.id == state_id:
+            the_state = request.get_json()
+            if not the_state:
+                abort(400, {'Not a JSON'})
+            for key, value in the_state.items():
+                ignore_keys = ["id", "created_at", "updated_at"]
+                if key not in ignore_keys:
+                    setatter(the_one, key, value)
+            the_one.save()
+            return (jsonify(the_one.to_dict()), 200)
+    abort(404)
