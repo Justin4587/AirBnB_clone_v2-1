@@ -6,13 +6,13 @@ from models import storage
 from models.state import State
 import json
 
-    
+
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_a_state(state_id=None):
     """ get stuff """
     the_states = storage.all('State').values()
-    state_list =[]
+    state_list = []
     if state_id is None or state_id is "":
         for i in the_states:
             state_list.append(i.to_dict())
@@ -23,8 +23,9 @@ def get_a_state(state_id=None):
         else:
             abort(404)
 
+
 @app_views.route('/states/<state_id>', methods=['DELETE'],
-                strict_slashes=False)
+                 strict_slashes=False)
 def delete_state(state_id=None):
     """Delete a state"""
     the_states = storage.all('State').values()
@@ -34,6 +35,7 @@ def delete_state(state_id=None):
             storage.save()
             return {}
     abort(404)
+
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_a_state(state_id=None):
@@ -47,6 +49,7 @@ def create_a_state(state_id=None):
     storage.new(my_state)
     storage.save()
     return my_state.to_dict(), 201
+
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_a_state(state_id=None):
