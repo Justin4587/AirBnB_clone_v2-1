@@ -21,5 +21,5 @@ def get_a_state(state_id=None):
         if the_one.id == state_id:
             return jsonify(the_one.to_dict())
         else:
-            return jsonify(state_list)
+            abort(404)
     
