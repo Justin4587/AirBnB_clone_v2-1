@@ -19,7 +19,8 @@ def teardown_api(exception):
 @app.errorhandler(404)
 def err_handle(error):
     """ stuff about errors is here"""
-    return jsonify({"error": "Not found"})
+    return jsonify({"error": "Not found"}), 404
+    
 
 
 if __name__ == '__main__':
