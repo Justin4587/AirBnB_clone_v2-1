@@ -78,8 +78,11 @@ class DBStorage:
 
     def get(self, cls, id):
         """ return obj by name id """
-        rt_obj = self.__session.query(cls).get(id)
-        return (rt_obj)
+        new_obj = self.all(cls)
+        new_id = cls.__name__ + '.' + id
+        rt_obj = new_obj.get(new_id)
+        return(rt_obj)
+
 
     def count(self, cls=None):
         """ get count """
