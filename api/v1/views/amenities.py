@@ -50,6 +50,5 @@ def create_a_amenity():
     elif 'name' not in the_state:
         abort(400, {'Missing name'})
     my_state = Amenity(**the_state)
-    storage.new(my_state)
-    storage.save()
+    my_state.save()
     return jsonify(my_state.to_dict(), 201)
