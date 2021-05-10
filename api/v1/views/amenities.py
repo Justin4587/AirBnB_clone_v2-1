@@ -52,3 +52,22 @@ def create_a_amenity():
     my_state = Amenity(**the_state)
     my_state.save()
     return (jsonify(my_state.to_dict()), 201)
+
+
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+                 strict_slashes=False)
+def update_a_amen(amenity_id=None):
+    """replace existing data at the specified resource"""
+    the_a = request.get_json()
+    all_as = storage.all('Amenity')
+
+    if the_a is None:
+        abort(400, {'Not a JSON'})
+
+    for the_one in the_a.values():
+        if the_one.id == amenity_id:
+            for key, value in the_a.items():
+                setattr(the_one, key, value)
+            the_one.save()
+            return (jsonify(the_one.to_dict()), 200)
+    abort(404)
