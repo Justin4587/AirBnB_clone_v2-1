@@ -38,3 +38,18 @@ def delete_amenity(amenity_id=None):
             storage.save()
             return {}
     abort(404)
+
+
+@app_views.route('/amenities', methods=['POST'],
+                 strict_slashes=False)
+def create_a_amenity():
+    """create a state"""
+    the_state = request.get_json()
+    if not the_state:
+        abort(400, {'Not a JSON'})
+    elif 'name' not in the_state:
+        abort(400, {'Missing name'})
+    my_state = State(**the_state)
+    storage.new(my_state)
+    storage.save()
+    return my_state.to_dict(), 201
