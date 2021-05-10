@@ -6,9 +6,11 @@ from api.v1.views import app_views
 from models import storage
 import json
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'],
-                 strict_slashes=False)
+
+
 @app_views.route('/amenities/', methods=['GET'],
+                 strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['GET'],
                  strict_slashes=False)
 def get_cities_de_amenity(amenity_id=None):
     """list of all cities in a state"""
@@ -18,7 +20,7 @@ def get_cities_de_amenity(amenity_id=None):
         for i in the_amenities:
             cities_list.append(i.to_dict())
         return jsonify(cities_list)
-    for the_one in the_amenites:
+    for the_one in the_amenities:
         if the_one.id == amenity_id:
             return jsonify(the_one.to_dict())
         else:
