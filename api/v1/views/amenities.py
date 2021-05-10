@@ -27,7 +27,7 @@ def get_cities_de_amenity(amenity_id=None):
             abort(404)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'],
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_amenity(amenity_id=None):
     """Delete a state"""
