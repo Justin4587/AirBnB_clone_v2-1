@@ -9,7 +9,7 @@ import json
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
-                strict_slashes=False)
+                 strict_slashes=False)
 def get_cities_de_state(state_id=None):
     """list of all cities in a state"""
     the_states = storage.all('State').values()
@@ -22,6 +22,7 @@ def get_cities_de_state(state_id=None):
             return jsonify(cities_list)
     abort(404)
 
+
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def get_city(city_id=None):
     """get city"""
@@ -30,6 +31,7 @@ def get_city(city_id=None):
         if the_one.id == city_id:
             return jsonify(the_one.to_dict())
     abort(404)
+
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def delete_city(city_id=None):
@@ -42,8 +44,9 @@ def delete_city(city_id=None):
             return {}
     abort(404)
 
+
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
-                strict_slashes=False)
+                 strict_slashes=False)
 def create_a_city(state_id=None):
     """create a city of state_id"""
     the_city = request.get_json()
@@ -60,6 +63,7 @@ def create_a_city(state_id=None):
             storage.save()
             return my_city.to_dict(), 201
     abort(404)
+
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id=None):
