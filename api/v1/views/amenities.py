@@ -18,7 +18,7 @@ def get_cities_de_amenity(amenity_id=None):
         for i in the_amenities:
             cities_list.append(i.to_dict())
         return jsonify(cities_list)
-    for the_one in the_amenitites:
+    for the_one in the_amenites:
         if the_one.id == amenity_id:
             return jsonify(the_one.to_dict())
         else:
