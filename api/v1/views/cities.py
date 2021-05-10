@@ -10,7 +10,7 @@ import json
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                 strict_slashes=False)
-def get_la_cities(state_id=None):
+def get_cities_de_state(state_id=None):
     """list of all cities in a state"""
     the_states = storage.all('State').values()
     cities_list = []
@@ -20,4 +20,13 @@ def get_la_cities(state_id=None):
                 if state_id == city.to_dict()['state_id']:
                     cities_list.append(city.to_dict())
             return jsonify(cities_list)
+    abort(404)
+
+@app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
+def get_city(city_id=None):
+    """get city"""
+    the_cities = storage.all('City').values()
+    for the_one in the_cities:
+        if the_one.id == city_id:
+            return jsonify(the_one.to_dict())
     abort(404)
