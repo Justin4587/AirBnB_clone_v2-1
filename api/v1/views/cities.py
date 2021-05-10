@@ -47,14 +47,16 @@ def delete_city(city_id=None):
 def create_a_city(state_id=None):
     """create a city of state_id"""
     the_city = request.get_json()
-    if not storage.get('State', state_id):
-        abort(404)
-    if not the_city:
-        abort(400, {'Not a JSON'})
-    elif 'name' not in the_city:
-        abort(400, {'Missing name'})
-    the_city['state_id'] = state_id
-    my_city = City(**the_city)
-    storage.new(my_city)
-    storage.save()
-    return my_city.to_dict(), 201
+    the_states = storage.all('State').values()
+    for the_one in the_states:
+        if the_one.id == state_id:
+            if not the_city:
+                abort(400, {'Not a JSON'})
+            elif 'name' not in the_city:
+                abort(400, {'Missing name'})
+            the_city['state_id'] = state_id
+            my_city = City(**the_city)
+            storage.new(my_city)
+            storage.save()
+            return my_city.to_dict(), 201
+    abort(404)
