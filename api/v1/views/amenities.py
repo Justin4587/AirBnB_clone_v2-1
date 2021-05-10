@@ -51,4 +51,4 @@ def create_a_amenity():
         abort(400, {'Missing name'})
     my_state = Amenity(**the_state)
     my_state.save()
-    return jsonify(my_state.to_dict(), 201)
+    return (jsonify(my_state.to_dict()), 201)
