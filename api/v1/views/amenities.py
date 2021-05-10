@@ -25,3 +25,16 @@ def get_cities_de_amenity(amenity_id=None):
             return jsonify(the_one.to_dict())
         else:
             abort(404)
+
+
+@app_views.route('/amenities/<amenity_id>', methods=['GET'],
+                 strict_slashes=False)
+def delete_amenity(amenity_id=None):
+    """Delete a state"""
+    the_states = storage.all('Amenity').values()
+    for the_one in the_states:
+        if the_one.id == amenity_id:
+            the_one.delete()
+            storage.save()
+            return {}
+    abort(404)
