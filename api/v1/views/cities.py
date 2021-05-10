@@ -41,3 +41,17 @@ def delete_city(city_id=None):
             storage.save()
             return {}
     abort(404)
+
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                strict_slashes=False)
+def create_a_city(state_id=None):
+    """create a city of state_id"""
+    the_city = request.get_json()
+    if not the_city:
+        abort(400, {'Not a JSON'})
+    elif 'name' not in the_city:
+        abort(400, {'Missing name'})
+    my_city = City(**the_city)
+    storage.new(my_city)
+    storage.save()
+    return my_city.to_dict(), 201
