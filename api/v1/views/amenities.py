@@ -52,4 +52,4 @@ def create_a_amenity():
     my_state = State(**the_state)
     storage.new(my_state)
     storage.save()
-    return my_state.to_dict(), 201
+    return jsonify(my_state.to_dict(), 201)
