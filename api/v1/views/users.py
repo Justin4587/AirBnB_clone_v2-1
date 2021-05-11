@@ -21,6 +21,7 @@ def get_a_user(user_id=None):
         else:
             abort(404)
 
+
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id=None):
     """delete user"""
@@ -31,6 +32,7 @@ def delete_user(user_id=None):
             storage.save()
             return {}
     abort(404)
+
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
@@ -45,6 +47,7 @@ def create_user():
     my_user = User(**the_user)
     my_user.save()
     return (jsonify(my_user.to_dict()), 201)
+
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id=None):
@@ -62,4 +65,3 @@ def update_user(user_id=None):
             the_one.save()
             return (jsonify(the_one.to_dict()), 200)
     abort(404)
-
