@@ -9,7 +9,7 @@ import json
 
 
 @app_views.route('/places/<place_id>/reviews',
-                methods=["GET"],strict_slashes=False)
+                 methods=["GET"], strict_slashes=False)
 def review_place(place_id=None):
     """review plcase"""
     the_reviews = storage.all('State').values()
