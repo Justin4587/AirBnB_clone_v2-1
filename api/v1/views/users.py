@@ -58,7 +58,7 @@ def update_user(user_id=None):
             for key, value in the_user.items():
                 if key not in ('id', 'email', 'created_at', 'updated_at'):
                     setattr(user, key, value)
-            the_one.save()
-            return jsonfiy(the_one.to_dict())
+            storage.save()
+            return (jsonfiy(the_one.to_dict()), 200)
     abort(404)
 
