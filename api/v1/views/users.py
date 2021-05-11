@@ -21,3 +21,14 @@ def get_a_user(user_id=None):
         else:
             abort(404)
 
+@app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
+def delete_user(user_id=None):
+    """delete user"""
+    the_users = storage.all('User').values()
+    for the_one in the_users:
+        if the_one.id == user_id:
+            the_one.delete()
+            storage.save()
+            return {}
+    abort(404)
+
