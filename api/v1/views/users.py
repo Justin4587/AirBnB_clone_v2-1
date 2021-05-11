@@ -17,7 +17,7 @@ def get_a_user(user_id=None):
     the_users = storage.all('User').values()
     for the_one in the_users:
         if the_one.id == user_id:
-            return jsonify(the_one.todict())
+            return jsonify(the_one.to_dict())
         else:
             abort(404)
 
