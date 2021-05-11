@@ -68,6 +68,7 @@ def update_a_amen(amenity_id=None):
         if the_one.id == amenity_id:
             for key, value in get_a.items():
                 setattr(the_one, key, value)
-            the_one.save()
+            my_amen = Amenity(**the_state)
+            my_amen.save()  
             return (jsonify(the_one.to_dict()), 200)
     abort(404)
