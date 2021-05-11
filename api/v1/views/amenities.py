@@ -66,8 +66,8 @@ def update_a_amen(amenity_id=None):
 
     for the_one in all_as.values():
         if the_one.id == amenity_id:
-            for key, value in all_as.items():
+            for key, value in the_a.items():
                 setattr(the_one, key, value)
-            storage.save()
+            amenity.save()
             return (jsonify(the_one.to_dict()), 200)
     abort(404)
