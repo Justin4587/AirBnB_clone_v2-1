@@ -60,6 +60,6 @@ def update_user(user_id=None):
                 if key not in ignore_keys:
                     setattr(the_one, key, value)
             the_one.save()
-            return (jsonfiy(the_one.to_dict()), 200)
+            return (jsonify(the_one.to_dict()), 200)
     abort(404)
 
