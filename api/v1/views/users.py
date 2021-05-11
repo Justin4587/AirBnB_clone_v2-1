@@ -32,3 +32,16 @@ def delete_user(user_id=None):
             return {}
     abort(404)
 
+@app_views.route('/users', methods=['POST'], strict_slashes=False)
+def create_user():
+    """create user"""
+    the_user = request.json()
+    if not the_user:
+        abourt(400, {'Not a JSON'})
+    elif 'name' not in the_user:
+        abort(400, {'Missing name'})
+    my_user = User(**the_user)
+    storage.new(my_user)
+    storage.save()
+    return my_user.to_dict(), 201
+
