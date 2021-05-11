@@ -59,7 +59,7 @@ def update_user(user_id=None):
                 ignore_keys = ['id', 'created_at', 'updated_at']
                 if key not in ignore_keys:
                     setattr(the_one, key, value)
-            storage.save()
+            the_one.save()
             return (jsonfiy(the_one.to_dict()), 200)
     abort(404)
 
