@@ -58,16 +58,17 @@ def create_a_amenity():
                  strict_slashes=False)
 def update_a_amen(amenity_id=None):
     """replace existing data at the specified resource"""
+    all_as = storage.all('Amenity').values()
     the_a = request.get_json()
-    all_as = storage.all('Amenity')
 
     if the_a is None:
         abort(400, {'Not a JSON'})
 
-    for the_one in the_a.values():
+    for the_one in all_as.values():
         if the_one.id == amenity_id:
-            for key, value in the_a.items():
+
+            for key, value in all_as.items():
                 setattr(the_one, key, value)
-            the_one.save()
+            storage.save()
             return (jsonify(the_one.to_dict()), 200)
     abort(404)
