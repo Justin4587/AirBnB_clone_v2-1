@@ -46,3 +46,19 @@ def create_user():
     my_user.save()
     return (jsonify(my_user.to_dict()), 201)
 
+@app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
+def update_user(user_id=None):
+    """update user"""
+    the_users = storage.all('User').values()
+    for the_one in the_users:
+        if the_one.id == user_id:
+            the_user = request.get_json()
+            if not the_user:
+                abort(400, {'Not a JSON'})
+            for key, value in the_user.items():
+                if key not in ('id', 'email', 'created_at', 'updated_at'):
+                    setattr(user, key, value)
+            the_one.save()
+            return jsonfiy(the_one.to_dict())
+    abort(404)
+
