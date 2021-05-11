@@ -66,7 +66,6 @@ def update_a_amen(amenity_id=None):
 
     for the_one in all_as.values():
         if the_one.id == amenity_id:
-
             for key, value in all_as.items():
                 setattr(the_one, key, value)
             storage.save()
